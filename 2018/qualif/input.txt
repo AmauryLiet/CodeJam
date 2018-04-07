@@ -1,7 +1,5 @@
-6
-1 CS
-2 CS
-1 SS
-6 SCCSSC
-2 CC
-3 CSCSS
+2
+5
+5 6 8 4 3
+3
+8 9 7
