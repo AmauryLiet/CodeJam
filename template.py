@@ -1,5 +1,5 @@
 N = int(input())
 
-for i in range(N):
+for case_id in range(1, N + 1):
     x = input()
-    print('Case #{}: {}'.format(i + 1, x))
+    print('Case #{}: {}'.format(case_id, x))
