@@ -1,3 +1,5 @@
+from typing import Set, Tuple
+
 log = lambda *a, **k: print(*a, **k) if False else None
 log2 = lambda *a, **k: print(*a, **k, sep='\n') if False else None
 
@@ -6,32 +8,29 @@ N = int(input())
 Di, Ai, Bi = range(3)
 
 
-def get_left_right_from_d_a_b(d, a, b):
+def get_left_right_from_d_a_b(d: int, a: int, b: int) -> tuple:
     return (
         d - b,
         d + a
     )
 
 
-def filter_possibilities(possibilities, sign_to_add):
+def filter_possibilities(possibilities: Set(set), sign_to_add: int):
     left_to_add, right_to_add = left_rights[sign_to_add]
     
-    result = []
+    result = set()
     
     for possibility in possibilities:
-        if left_to_add in possibility or right_to_add in possibility:
-            result.append(possibility)
+        poss_left, poss_right = possibility
+        if left_to_add == poss_left or right_to_add == poss_right:
+            result.add(possibility)
         
         elif None in possibility:
-            poss_left, poss_right = possibility
-            
             if poss_left is None:
-                result.append([left_to_add, poss_right])
-                result.append([right_to_add, poss_right])
+                result.add((left_to_add, poss_right))
             
             else:
-                result.append([poss_left, left_to_add])
-                result.append([poss_left, right_to_add])
+                result.add((poss_left, right_to_add))
         
         else:
             pass
@@ -63,10 +62,10 @@ for case_id in range(1, N + 1):
         
         # build up cur_seq to its max
         poss_1_left, poss_2_right = left_rights[cur_seq_start]
-        possibilities = [
-            [poss_1_left, None],
-            [None, poss_2_right],
-        ]
+        possibilities = {
+            (poss_1_left, None),
+            (None, poss_2_right),
+        }
         
         while True:
             # update best score
