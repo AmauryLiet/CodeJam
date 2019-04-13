@@ -149,6 +149,7 @@ class Case:
         assert(type(contestant_input) is list)
         if set(contestant_input) == self.__bad_set:
           # Testcase answered correctly
+          print('responded', 1, file=sys.stderr)
           print(1)
           sys.stdout.flush()
           return None
