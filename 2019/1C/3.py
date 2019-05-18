@@ -19,16 +19,13 @@ def get_winner_if_plays(matrix, player, row, column, type):
 
     other_player = OTHER_PLAYER[player]
     if matrix_after_play:
-        possible_winners = [
-            get_winner_if_plays(matrix_after_play, other_player,
-                                next_player_row_index, next_player_column_index, next_player_move_type)
-            for next_player_move_type, next_player_row_index, next_player_column_index
-            in product([VERTICAL, HORIZONTAL], range(R), range(C))
-        ]
-        if all(possible_winner == player for possible_winner in possible_winners):
-            return player
-        else:
-            return other_player
+        for next_player_move_type, next_player_row_index, next_player_column_index \
+                in product([VERTICAL, HORIZONTAL], range(R), range(C)):
+            winner = get_winner_if_plays(matrix_after_play, other_player, next_player_row_index,
+                                         next_player_column_index, next_player_move_type)
+            if winner != player:
+                return other_player
+        return player
 
     else:
         return other_player
